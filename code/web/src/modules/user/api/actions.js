@@ -13,6 +13,8 @@ export const SET_USER = 'AUTH/SET_USER'
 export const LOGOUT = 'AUTH/LOGOUT'
 
 // Actions
+// actions for Redux or Axios? My understanding is that Axios is similar to fetch but for Node.
+// These seem so much different than the Redux actions that I have seen. It looks like only the first one, setUser() is returning an action. Okay, maybe there are some others as well...it looks like some of the dispatch() methods are returning an action. Some of the methods like registering a user seem out of place in this file but maybe not. 
 
 // Set a user after login or using localStorage token
 export function setUser(token, user) {

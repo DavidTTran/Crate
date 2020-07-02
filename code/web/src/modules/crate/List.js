@@ -27,7 +27,7 @@ class List extends PureComponent {
   componentDidMount() {
     this.props.getCratesList('ASC')
   }
-
+  
   render() {
     return (
       <div>
