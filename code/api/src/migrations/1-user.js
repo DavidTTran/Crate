@@ -33,3 +33,5 @@ module.exports = {
     return queryInterface.dropTable('users');
   }
 }
+
+//set migration? manually?
