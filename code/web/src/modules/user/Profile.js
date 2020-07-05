@@ -64,4 +64,5 @@ function profileState(state) {
   }
 }
 
+// export and connect the component to redux
 export default connect(profileState, { logout })(Profile)

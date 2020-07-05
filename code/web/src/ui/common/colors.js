@@ -1,11 +1,11 @@
 // Colors
-
+// dark purple
 export const primary = '#7367F0'
-
+// light purple
 export const primaryAccent = '#CE9FFC'
-
+// red/orange
 export const secondary = '#EA5455'
-
+// salmon
 export const secondaryAccent = '#FEB692'
 
 export const white = '#ffffff'
