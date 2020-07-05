@@ -13,6 +13,7 @@ import { APP_URL } from '../../setup/config/env'
 import home from '../../setup/routes/home'
 
 // Component
+// page not found error message to reuse
 const NotFound = () => (
   <div>
     {/* SEO */}

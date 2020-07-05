@@ -13,6 +13,8 @@ import { renderIf } from '../../setup/helpers'
 import { messageHide } from './api/actions'
 import Header from './header/Header'
 
+
+// component layout for reuse
 class Layout extends PureComponent {
 
   render() {

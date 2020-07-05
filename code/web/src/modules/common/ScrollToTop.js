@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react'
 import { withRouter } from 'react-router-dom'
 
 // Component
+// scroll to top component to reuse
 class ScrollToTop extends PureComponent {
 
   componentDidUpdate(prevProps) {
