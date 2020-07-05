@@ -14,6 +14,7 @@ export async function create(parentValue, { name, email, password }) {
 
   if (!user) {
     // User does not exists
+    // this is encrypting the user password. saltRounds??
     const passwordHashed = await bcrypt.hash(password, serverConfig.saltRounds)
 
     return await models.User.create({
@@ -59,21 +60,25 @@ export async function login(parentValue, { email, password }) {
 }
 
 // Get by ID
+// finds a user by id
 export async function getById(parentValue, { id }) {
   return await models.User.findOne({ where: { id } })
 }
 
 // Get all
+// gets all the users
 export async function getAll() {
   return await models.User.findAll()
 }
 
 // Delete
+// deletes a user by id
 export async function remove(parentValue, { id }) {
   return await models.User.destroy({ where: { id } })
 }
 
 // User genders
+// finds a users gender
 export async function getGenders() {
   return Object.values(params.user.gender)
 }

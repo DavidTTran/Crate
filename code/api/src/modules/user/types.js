@@ -2,6 +2,7 @@
 import { GraphQLObjectType, GraphQLString, GraphQLInt } from 'graphql'
 
 // User type
+// shows the GraphQL data types for the user object
 const UserType = new GraphQLObjectType({
   name: 'user',
   description: 'User type',
@@ -18,6 +19,7 @@ const UserType = new GraphQLObjectType({
 })
 
 // User Login type
+// sets login GraphQL data types
 const UserLoginType = new GraphQLObjectType({
   name: 'userAuth',
   description: 'User Authentication Type',
@@ -29,6 +31,7 @@ const UserLoginType = new GraphQLObjectType({
 })
 
 // User Gender type
+// sets gender data types
 const UserGenderType = new GraphQLObjectType({
   name: 'userGender',
   description: 'User Gender Type',

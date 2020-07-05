@@ -6,12 +6,14 @@ import { UserType, UserLoginType, UserGenderType } from './types'
 import { getAll, getById, login, getGenders } from './resolvers'
 
 // All
+// gets all users
 export const users = {
   type: new GraphQLList(UserType),
   resolve: getAll
 }
 
 // By ID
+// finds a user by id
 export const user = {
   type: UserType,
   args: {
@@ -21,6 +23,7 @@ export const user = {
 }
 
 // Auth
+// verifies the user login is formatted correctly
 export const userLogin = {
   type: UserLoginType,
   args: {

@@ -1,6 +1,7 @@
 'use strict'
 
 // User
+// model for what the user object should like like for the database. it also specifies the data types for each value
 module.exports = function(sequelize, DataTypes) {
   let User = sequelize.define('users', {
     name: {
