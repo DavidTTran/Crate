@@ -59,6 +59,8 @@ export async function login(parentValue, { email, password }) {
   }
 }
 
+// export async function update
+
 // Get by ID
 export async function getById(parentValue, { id }) { // custom GraphQL queries
   return await models.User.findOne({ where: { id } })

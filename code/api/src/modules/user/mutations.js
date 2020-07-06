@@ -1,4 +1,4 @@
-// Mutations format the information for GraphQL 
+// Mutations format the information for GraphQL
 // Imports
 import { GraphQLString, GraphQLInt } from 'graphql'
 
@@ -27,6 +27,8 @@ export const userSignup = { //formats the information
   },
   resolve: create //goes to resolvers.js
 }
+
+// export const userUpdate
 
 // Remove
 export const userRemove = {

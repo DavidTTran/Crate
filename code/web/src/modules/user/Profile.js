@@ -46,6 +46,8 @@ const Profile = (props) => ( // Profile view
   </div>
 )
 
+// User needs to display picture, summary, and two separate sections for current subscriptions, and fulfilled subscriptions
+
 // Component Properties
 Profile.propTypes = {
   user: PropTypes.object.isRequired, // current_user are saved to props?

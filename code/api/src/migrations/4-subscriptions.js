@@ -33,7 +33,9 @@ module.exports = {
       }
     });
   },
-  down: (queryInterface, Sequelize) => { //might have to have both up and down
+  down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('subscriptions');
   }
 }
+
+// subscriptions are going to have to be delivered

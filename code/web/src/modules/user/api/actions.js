@@ -25,6 +25,8 @@ export function setUser(token, user) { //rails current_user
   return { type: SET_USER, user }
 }
 
+// export function update
+
 // Login a user using credentials
 export function login(userCredentials, isLoading = true) {
   return dispatch => {
