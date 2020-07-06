@@ -4,13 +4,13 @@ const bcrypt = require('bcrypt');
 const config = require('../config/server.json');
 const params = require('../config/params.json');
 
-module.exports = {
+module.exports = { //seed DB with info
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('users', [
       {
         name: 'The Admin',
         email: 'admin@crate.com',
-        password: bcrypt.hashSync('123456', config.saltRounds),
+        password: bcrypt.hashSync('123456', config.saltRounds), //string argument is the original password (for seeds)
         role: params.user.roles.admin,
         createdAt: new Date(),
         updatedAt: new Date()

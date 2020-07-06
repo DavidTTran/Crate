@@ -33,7 +33,7 @@ module.exports = {
       }
     });
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface, Sequelize) => { //might have to have both up and down
     return queryInterface.dropTable('subscriptions');
   }
 }

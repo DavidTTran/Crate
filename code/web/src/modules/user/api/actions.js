@@ -15,7 +15,7 @@ export const LOGOUT = 'AUTH/LOGOUT'
 // Actions
 
 // Set a user after login or using localStorage token
-export function setUser(token, user) {
+export function setUser(token, user) { //rails current_user
   if (token) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   } else {
@@ -33,23 +33,23 @@ export function login(userCredentials, isLoading = true) {
       isLoading
     })
 
-    return axios.post(routeApi, query({
-      operation: 'userLogin',
+    return axios.post(routeApi, query({ // axios is similar to faraday, and it's sending a post request to the API - defined in .env
+      operation: 'userLogin', // api/src/modules/user/query.js
       variables: userCredentials,
-      fields: ['user {name, email, role}', 'token']
+      fields: ['user {name, email, role}', 'token'] // information passed
     }))
       .then(response => {
         let error = ''
 
         if (response.data.errors && response.data.errors.length > 0) {
-          error = response.data.errors[0].message
+          error = response.data.errors[0].message // Errors are returned from the API and displayed
         } else if (response.data.data.userLogin.token !== '') {
           const token = response.data.data.userLogin.token
           const user = response.data.data.userLogin.user
 
-          dispatch(setUser(token, user))
+          dispatch(setUser(token, user)) // calls on the setUser method
 
-          loginSetUserLocalStorageAndCookie(token, user)
+          loginSetUserLocalStorageAndCookie(token, user) // calls on the local method that saves a cookie
         }
 
         dispatch({
@@ -73,16 +73,16 @@ export function loginSetUserLocalStorageAndCookie(token, user) {
   window.localStorage.setItem('user', JSON.stringify(user))
 
   // Set cookie for SSR
-  cookie.set('auth', { token, user }, { path: '/' })
+  cookie.set('auth', { token, user }, { path: '/' }) //saves a cookie locally
 }
 
 // Register a user
 export function register(userDetails) {
   return dispatch => {
     return axios.post(routeApi, mutation({
-      operation: 'userSignup',
+      operation: 'userSignup', //api/src/modules/user/mutations.js
       variables: userDetails,
-      fields: ['id', 'name', 'email']
+      fields: ['id', 'name', 'email'] //information passed
     }))
   }
 }

@@ -11,7 +11,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   })
 
-  Subscription.associate = function(models) {
+  Subscription.associate = function(models) { //rails models relationships
     Subscription.belongsTo(models.User)
     Subscription.belongsTo(models.Crate)
   }

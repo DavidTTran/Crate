@@ -6,7 +6,7 @@ export const MESSAGE_SHOW = 'COMMON_MESSAGE_SHOW'
 export const MESSAGE_HIDE = 'COMMON_MESSAGE_HIDE'
 
 // Actions
-export function messageShow(message) {
+export function messageShow(message) { // Application wide API action
   return { type: MESSAGE_SHOW, message }
 }
 
@@ -23,4 +23,3 @@ export function upload(data) {
     })
   }
 }
-

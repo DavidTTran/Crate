@@ -2,7 +2,7 @@
 import { GraphQLObjectType, GraphQLString, GraphQLInt } from 'graphql'
 
 // User type
-const UserType = new GraphQLObjectType({
+const UserType = new GraphQLObjectType({ //this are specific GraphQL objects?
   name: 'user',
   description: 'User type',
 

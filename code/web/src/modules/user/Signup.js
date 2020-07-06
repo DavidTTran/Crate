@@ -32,14 +32,14 @@ class Signup extends Component {
       error: '',
       isLoading: false,
       user: {
-        name: '',
+        name: '', //sets user info default
         email: '',
         password: '',
       }
     }
   }
 
-  onChange = (event) => {
+  onChange = (event) => { //as each field updates, this updates the user info
     let user = this.state.user
     user[event.target.name] = event.target.value
 
@@ -48,7 +48,7 @@ class Signup extends Component {
     })
   }
 
-  onSubmit = (event) => {
+  onSubmit = (event) => { //triggered when clicking submit
     event.preventDefault()
 
     this.setState({
@@ -57,18 +57,18 @@ class Signup extends Component {
 
     this.props.messageShow('Signing you up, please wait...')
 
-    this.props.register(this.state.user)
+    this.props.register(this.state.user) //.register goes to web/src/modules/user/api/actions
       .then(response => {
         this.setState({
           isLoading: false
         })
 
         if (response.data.errors && response.data.errors.length > 0) {
-          this.props.messageShow(response.data.errors[0].message)
+          this.props.messageShow(response.data.errors[0].message) //based on the response from the api, it returns an error or success message
         } else {
           this.props.messageShow('Signed up successfully.')
 
-          this.props.history.push(userRoutes.login.path)
+          this.props.history.push(userRoutes.login.path) //redirects the user to the login path
         }
       })
       .catch(error => {
@@ -86,7 +86,7 @@ class Signup extends Component {
       })
   }
 
-  render() {
+  render() { //similar to views for rails
     return (
       <Grid gutter={true} alignCenter={true} style={{ padding: '2em' }}>
         {/* SEO */}
@@ -168,7 +168,7 @@ class Signup extends Component {
               </Link>
 
               {/* Form submit */}
-              <Button type="submit" theme="secondary" disabled={this.state.isLoading}>
+              <Button type="submit" theme="secondary" disabled={this.state.isLoading}> //links to the onSubmit action
                 Signup
                 <Icon size={1.2} style={{ color: white }}>navigate_next</Icon>
               </Button>

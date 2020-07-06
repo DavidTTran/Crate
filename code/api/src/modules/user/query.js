@@ -21,7 +21,7 @@ export const user = {
 }
 
 // Auth
-export const userLogin = {
+export const userLogin = { // This goes to resolvers/login, but I don't really know what the resolver does with this info
   type: UserLoginType,
   args: {
     email: {

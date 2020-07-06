@@ -1,3 +1,4 @@
+// Resolvers primarily handle API methods
 // Imports
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
@@ -10,20 +11,20 @@ import models from '../../setup/models'
 // Create
 export async function create(parentValue, { name, email, password }) {
   // Users exists with same email check
-  const user = await models.User.findOne({ where: { email } })
+  const user = await models.User.findOne({ where: { email } }) // GraphQL query that searches for a User with matching email
 
   if (!user) {
     // User does not exists
-    const passwordHashed = await bcrypt.hash(password, serverConfig.saltRounds)
+    const passwordHashed = await bcrypt.hash(password, serverConfig.saltRounds) // hashes the password with bcrypt
 
-    return await models.User.create({
+    return await models.User.create({ // this creates the User if the user(email) doesn't already exist
       name,
       email,
-      password: passwordHashed
+      password: passwordHashed // saves the hashed password into the DB
     })
   } else {
     // User exists
-    throw new Error(`The email ${ email } is already registered. Please try to login.`)
+    throw new Error(`The email ${ email } is already registered. Please try to login.`) // returns the error for the component
   }
 }
 
@@ -37,13 +38,13 @@ export async function login(parentValue, { email, password }) {
     const userDetails = user.get()
 
     // User exists
-    const passwordMatch = await bcrypt.compare(password, userDetails.password)
+    const passwordMatch = await bcrypt.compare(password, userDetails.password) // bcrypt.compare hashes the entered password and compares it to the db
 
     if (!passwordMatch) {
       // Incorrect password
       throw new Error(`Sorry, the password you entered is incorrect. Please try again.`)
     } else {
-      const userDetailsToken = {
+      const userDetailsToken = { // if user successfully logs in it gets the user info
         id: userDetails.id,
         name: userDetails.name,
         email: userDetails.email,
@@ -52,14 +53,14 @@ export async function login(parentValue, { email, password }) {
 
       return {
         user: userDetails,
-        token: jwt.sign(userDetailsToken, serverConfig.secret)
+        token: jwt.sign(userDetailsToken, serverConfig.secret) // returns the token for the component
       }
     }
   }
 }
 
 // Get by ID
-export async function getById(parentValue, { id }) {
+export async function getById(parentValue, { id }) { // custom GraphQL queries
   return await models.User.findOne({ where: { id } })
 }
 

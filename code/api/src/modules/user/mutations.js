@@ -1,12 +1,13 @@
+// Mutations format the information for GraphQL 
 // Imports
 import { GraphQLString, GraphQLInt } from 'graphql'
 
 // App Imports
 import { UserType } from './types'
-import { create, remove } from './resolvers'
+import { create, remove } from './resolvers' //methods have to be imported from other files
 
 // Create
-export const userSignup = {
+export const userSignup = { //formats the information
   type: UserType,
   args: {
     name: {
@@ -24,7 +25,7 @@ export const userSignup = {
       type: GraphQLString
     }
   },
-  resolve: create
+  resolve: create //goes to resolvers.js
 }
 
 // Remove

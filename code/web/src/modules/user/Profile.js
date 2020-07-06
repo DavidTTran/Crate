@@ -16,7 +16,7 @@ import userRoutes from '../../setup/routes/user'
 import { logout } from './api/actions'
 
 // Component
-const Profile = (props) => (
+const Profile = (props) => ( // Profile view
   <div>
     {/* SEO */}
     <Helmet>
@@ -32,15 +32,15 @@ const Profile = (props) => (
 
     <Grid>
       <GridCell style={{ padding: '2em', textAlign: 'center' }}>
-        <H4 style={{ marginBottom: '0.5em' }}>{props.user.details.name}</H4>
+        <H4 style={{ marginBottom: '0.5em' }}>{props.user.details.name}</H4> // User.name
 
-        <p style={{ color: grey2, marginBottom: '2em' }}>{props.user.details.email}</p>
+        <p style={{ color: grey2, marginBottom: '2em' }}>{props.user.details.email}</p> // User.email
 
         <Link to={userRoutes.subscriptions.path}>
           <Button theme="primary">Subscriptions</Button>
         </Link>
 
-        <Button theme="secondary" onClick={props.logout} style={{ marginLeft: '1em' }}>Logout</Button>
+        <Button theme="secondary" onClick={props.logout} style={{ marginLeft: '1em' }}>Logout</Button> // Button with onClick action
       </GridCell>
     </Grid>
   </div>
@@ -48,7 +48,7 @@ const Profile = (props) => (
 
 // Component Properties
 Profile.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired, // current_user are saved to props?
   logout: PropTypes.func.isRequired
 }
 

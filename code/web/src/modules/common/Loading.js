@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import { grey2 } from '../../ui/common/colors'
 
 // Component
-const Loading = (props) => (
+const Loading = (props) => ( // loading screen for is_loading = true (?)
   <p style={{ color: grey2, textAlign: 'center', padding: '2em' }}>{props.message ? props.message : 'loading...'}</p>
 )
 

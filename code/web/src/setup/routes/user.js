@@ -17,9 +17,9 @@ export default {
   },
 
   profile: {
-    path: '/user/profile',
+    path: '/user/profile', // Routes
     component: Profile,
-    auth: true
+    auth: true // Requires login
   },
 
   subscriptions: {

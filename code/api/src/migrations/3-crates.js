@@ -1,7 +1,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('crates', {
-      id: {
+      id: { //rails validations
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,

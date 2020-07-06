@@ -2,7 +2,7 @@
 
 // User
 module.exports = function(sequelize, DataTypes) {
-  let User = sequelize.define('users', {
+  let User = sequelize.define('users', { // User DB info
     name: {
       type: DataTypes.STRING
     },
