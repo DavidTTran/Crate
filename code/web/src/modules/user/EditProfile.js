@@ -5,7 +5,7 @@ import Button from '../../ui/button'
 import { Grid, GridCell } from '../../ui/grid'
 import { H3 } from '../../ui/typography'
 import { grey} from '../../ui/common/colors'
-import { updateProfile } from './api/actions'
+import { update } from './api/actions'
 
 
 
@@ -38,7 +38,7 @@ const EditProfile = (props) => {
             shippingAddress,
             description
         }
-        props.updateProfile(updatedUser)
+        props.update(updatedUser)
         clearInputs()
     }
 
@@ -118,4 +118,4 @@ EditProfile.propTypes = {
     }
   }
   
-  export default connect(editProfileState, {updateProfile})(EditProfile)
+  export default connect(editProfileState, {update})(EditProfile)
