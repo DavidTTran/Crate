@@ -6,6 +6,8 @@ import { Helmet } from "react-helmet"
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
+//Nick  'thunk' is middleware that lets you call action creators that return a function instead
+// of an action object.  I don't really know what that means at the moment.
 import { flushToHTML } from 'styled-jsx/server'
 
 // App Imports
@@ -24,6 +26,7 @@ export default function (app) {
     rootReducer,
     applyMiddleware(thunk)
   )
+  // console.log('store', store);
 
   // Match any Route
   app.get('*', (request, response) => {

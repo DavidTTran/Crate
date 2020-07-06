@@ -1,3 +1,6 @@
+//Nick comments and questions:
+// 1) each image is a link to a route.  is this somewhere on the backend?
+
 // Imports
 import React from 'react'
 import PropTypes from 'prop-types'
@@ -88,6 +91,12 @@ const HowItWorks = (props) => (
                 <Button theme="primary">Start <Icon size={1.2} style={{ color: white }}>navigate_next</Icon></Button>
               </Link>
         }
+
+          {/* test route Nick added */}
+          <Link to={userRoutes.test.path}>
+            <Button theme="primary">Test Button <Icon size={1.2} style={{ color: white }}>navigate_next</Icon></Button>
+          </Link>
+
       </GridCell>
     </Grid>
   </div>

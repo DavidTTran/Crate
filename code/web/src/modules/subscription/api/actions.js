@@ -1,3 +1,6 @@
+// Nick:  add delivery dates for subcriptions here?
+// Also add ability to update delivery?
+
 // Imports
 import axios from 'axios'
 import { query, mutation } from 'gql-query-builder'

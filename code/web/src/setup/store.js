@@ -11,6 +11,7 @@ import * as subscription from '../modules/subscription/api/state'
 import * as crate from '../modules/crate/api/state'
 
 // App Reducer
+//Nick all modules with api folders(which all have server calls) are being brought here
 const appReducer = combineReducers({
   common,
   user,
@@ -20,6 +21,7 @@ const appReducer = combineReducers({
 })
 
 // Root Reducer
+//root reducer, with all of the above appReducers, which is then exported to the /server/load-routes.js
 export const rootReducer = (state, action) => {
   if (action.type === 'RESET') {
     state = undefined

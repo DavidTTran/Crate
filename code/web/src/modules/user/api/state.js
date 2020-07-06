@@ -19,6 +19,7 @@ export default (state = userInitialState, action) => {
         isAuthenticated: !isEmpty(action.user),
         details: action.user,
       }
+      console.log('state', state);
 
     case LOGIN_REQUEST:
       return {

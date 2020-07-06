@@ -120,7 +120,7 @@ export function getById(productId) {
 export function getRelatedList(productId, isLoading = true) {
   return (dispatch, getState) => {
     let state = getState()
-
+    console.log(state);
     if (state.productsRelated.list.length === 0 || state.productId !== productId) {
       dispatch({
         type: PRODUCTS_GET_RELATED_LIST_REQUEST,
@@ -135,11 +135,18 @@ export function getRelatedList(productId, isLoading = true) {
       }))
         .then(response => {
           if (response.status === 200) {
+            console.log('response', response);
+            let products
+            if (!response.data.data.productsRelated){
+              products = []
+            } else {
+              products = response.data.data.productsRelated
+            }
             dispatch({
               type: PRODUCTS_GET_RELATED_LIST_RESPONSE,
               error: null,
               isLoading: false,
-              list: response.data.data.productsRelated,
+              list: products,
               productId
             })
           } else {

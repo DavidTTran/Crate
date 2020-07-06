@@ -29,6 +29,7 @@ class Detail extends PureComponent {
   // Runs on client only
   componentDidMount() {
     this.refresh(this.props.match.params.slug)
+    console.log(this.props);
   }
 
   componentWillReceiveProps(nextProps) {

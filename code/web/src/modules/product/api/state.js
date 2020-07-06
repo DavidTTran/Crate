@@ -38,7 +38,7 @@ export const products = (state = productsInitialState, action) => {
         ...state,
         isLoading: false,
         error: action.error,
-        list: action.list
+        list: action.list || []
       }
 
     case PRODUCTS_GET_LIST_FAILURE:
@@ -111,6 +111,7 @@ const productsRelatedInitialState = {
 export const productsRelated = (state = productsRelatedInitialState, action) => {
   switch (action.type) {
     case PRODUCTS_GET_RELATED_LIST_REQUEST:
+    console.log(state);
       return {
         ...state,
         isLoading: action.isLoading,
@@ -122,7 +123,7 @@ export const productsRelated = (state = productsRelatedInitialState, action) => 
         ...state,
         isLoading: false,
         error: action.error,
-        list: action.list,
+        list: action.list || [],
         productId: action.productId
       }
 
@@ -137,4 +138,3 @@ export const productsRelated = (state = productsRelatedInitialState, action) => 
       return state
   }
 }
-

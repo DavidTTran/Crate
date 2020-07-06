@@ -18,6 +18,7 @@ class Related extends PureComponent {
 
   componentDidMount() {
     this.refresh(this.props.productId)
+    console.log(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -40,7 +41,7 @@ class Related extends PureComponent {
           {
             isLoading
               ? <Loading />
-              : list.length > 0
+              : list != null && list.length > 0
                 ? list.map(product => (
                     <GridCell key={product.id} style={{ textAlign: 'center' }}>
                       <ProductItem product={product}/>

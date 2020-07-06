@@ -1,3 +1,8 @@
+//Nick comments
+//here is where we will have to add the image and other user items to the redux store
+//and server.  (I believe)
+//axios question:  all of the axios methods seem to be  POST.  Why not any get requests?
+
 // Imports
 import axios from 'axios'
 import { query, mutation } from 'gql-query-builder'

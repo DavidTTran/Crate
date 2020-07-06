@@ -4,6 +4,8 @@ import Express from 'express'
 import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 import morgan from 'morgan'
+//morgan is a helper library that collects logs from the server so devs
+// dont have ot manually create logs
 
 // App Imports
 import { NODE_ENV } from '../config/env'

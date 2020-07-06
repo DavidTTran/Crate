@@ -1,3 +1,5 @@
+// Nick  SubcriptionItem is same as Item from subcription/Item.js
+
 // Imports
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
@@ -48,6 +50,7 @@ class Subscriptions extends PureComponent {
         </Grid>
 
         {/* Product list */}
+        {/* all subscriptions that user has are mapped out and displayd here */}
         <Grid>
           <GridCell>
             {
@@ -56,6 +59,7 @@ class Subscriptions extends PureComponent {
                 : this.props.subscriptions.list.length > 0
                     ? this.props.subscriptions.list.map(subscription => (
                         <div key={subscription.id} style={{ margin: '2em', float: 'left' }}>
+                        {/* for SubcriptionItem, show dates of deliveries?? */}
                           <SubscriptionItem subscription={subscription} />
                         </div>
                       ))
