@@ -11,6 +11,7 @@ export const LOGIN_REQUEST = 'AUTH/LOGIN_REQUEST'
 export const LOGIN_RESPONSE = 'AUTH/LOGIN_RESPONSE'
 export const SET_USER = 'AUTH/SET_USER'
 export const LOGOUT = 'AUTH/LOGOUT'
+export const UPDATE_USER='AUTH/UPDATE_USER'
 
 // Actions
 
@@ -119,12 +120,23 @@ export function getGenders() {
 }
 
 export function updateProfile(userDetails) {
-  console.log(userDetails)
   return dispatch => {
       return axios.post(routeApi, mutation({
         operation: 'editProfile',
         variables: userDetails,
         fields: ['name', 'email', 'shippingAddress', 'description']
       }))
+      .then(response => {
+        setLocalStorageOnEditProfile(userDetails)
+        dispatch({
+          type: UPDATE_USER,
+          userDetails
+        })
+      })   
+    }
   }
-}
+  
+  const setLocalStorageOnEditProfile = (user) => {
+    const userObj = {email: user.email, name: user.name, role: 'user', shippingAddress: user.shippingAddress}
+    window.localStorage.setItem('user', JSON.stringify(userObj))
+  }
