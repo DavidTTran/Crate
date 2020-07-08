@@ -6,6 +6,7 @@ import { Grid, GridCell } from '../../ui/grid'
 import { H3 } from '../../ui/typography'
 import { grey} from '../../ui/common/colors'
 import { updateProfile } from './api/actions'
+import user from '../../setup/routes/user'
 
 
 
@@ -30,27 +31,60 @@ const EditProfile = (props) => {
     // }
     
     const handleClick = async () => {
-        console.log(props.user)
-        const updatedUser = {
-            // id: props.user.id,
-            name,
-            email,
-            shippingAddress,
-            description
-        }
+        console.log(name)
+        const updatedUser = createUpdatedUser()
+        // const updatedUser = {
+        //     name,
+        //     email,
+        //     shippingAddress,
+        //     description
+        // }
+
         await props.updateProfile(updatedUser)
         .then(data => console.log(data))
         .catch(err => console.error(err))
-          
-
         clearInputs()
     }
 
+    // need better error handling
+    const createUpdatedUser = () => {
+        console.log(props.user)
+        const updatedName = name !== undefined ? name : props.user.details.name
+        const updatedEmail = email !== undefined ? email : props.user.details.email
+        // const updatedShippingAddress = shippingAddress !== undefined ? shippingAddress : props.user.shippingAddress
+        // const updatedDescription = description !== undefined ? description : props.user.description
+        const updatedShippingAddress = () => {
+            if (shippingAddress !== undefined) {
+                return shippingAddress
+            }
+            if (props.user.shippingAddress === undefined) {
+                return 'no shipping address on file'
+            }
+            return props.user.shippingAddress
+        }
+        const updatedDescription = () => {
+            if (description !== undefined) {
+                return description
+            }
+            if (props.user.description === undefined) {
+                return 'no description on file'
+            }
+            return props.user.description
+        }
+        
+        return {
+            name: updatedName,
+            email: updatedEmail,
+            shippingAddress: updatedShippingAddress(),
+            description: updatedDescription()
+        }
+    }
+
     const clearInputs = () => {
-        updateName('')
-        updateEmail('')
-        updateShippingAddress('')
-        updateDescription('')
+        updateName()
+        updateEmail()
+        updateShippingAddress()
+        updateDescription()
     }
 
     return (
@@ -80,16 +114,15 @@ const EditProfile = (props) => {
                     type="text"
                     name="shipping-address"
                     value={shippingAddress}
-                    // placeholder={props.user.details.address}
-                    placeholder="address"
+                    placeholder={props.user.details.shippingAddress ? props.user.details.shippingAddress : 'enter address'}
                     onChange={e => updateShippingAddress(e.target.value)}
                 />
                 <input 
                     type="text"
                     name="description"
                     value={description}
-                    // placeholder={props.user.details.description}
-                    placeholder="description"
+                    placeholder={props.user.details.description ? props.user.details.description : 'enter a description'}
+                    
                     onChange={e => updateDescription(e.target.value)}
                 />
 
