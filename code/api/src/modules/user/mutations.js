@@ -22,7 +22,7 @@ export const userSignup = {
     password: {
       name: 'password',
       type: GraphQLString
-    }
+    },
   },
   resolve: create
 }
@@ -60,6 +60,11 @@ export const editProfile = {
 
     description: {
       name: 'description',
+      type: GraphQLString
+    },
+    
+    image: {
+      name: 'image',
       type: GraphQLString
     }
 
