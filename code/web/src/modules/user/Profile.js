@@ -4,6 +4,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
+import { routeImage, routes } from '../../setup/routes'
+
+
 
 // UI Imports
 import { Grid, GridCell } from '../../ui/grid'
@@ -16,7 +19,12 @@ import userRoutes from '../../setup/routes/user'
 import { logout } from './api/actions'
 
 // Component
-const Profile = (props) => (
+
+const Profile = (props) => {
+  const imageRoute = "http://localhost:8000/images/uploads/"
+  const profilePicRoute = props.user.details.image
+  
+  return (
   <div>
     {/* SEO */}
     <Helmet>
@@ -54,12 +62,14 @@ const Profile = (props) => (
         <Link to={userRoutes.editProfile.path}>
           <Button theme="secondary">Edit Profile</Button>
         </Link>
+        <img src={imageRoute + profilePicRoute} alt="profile"/>
 
         <Button theme="secondary" onClick={props.logout} style={{ marginLeft: '1em' }}>Logout</Button>
       </GridCell>
     </Grid>
   </div>
 )
+  }
 
 // Component Properties.
 Profile.propTypes = {

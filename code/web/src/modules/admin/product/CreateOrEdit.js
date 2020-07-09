@@ -179,7 +179,7 @@ class CreateOrEdit extends Component {
 
     let data = new FormData()
     data.append('file', event.target.files[0])
-
+    // console.log('admin upload', data)
     // Upload image
     this.props.upload(data)
       .then(response => {
