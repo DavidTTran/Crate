@@ -1,25 +1,26 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import Button from '../../ui/button'
 import { Grid, GridCell } from '../../ui/grid'
+import { Input, Textarea } from '../../ui/input'
 import { H3 } from '../../ui/typography'
 import { grey} from '../../ui/common/colors'
 import { updateProfile } from './api/actions'
-import user from '../../setup/routes/user'
+import userRoutes from '../../setup/routes/user'
 
 
 
 // class EditProfile extends React.Component {
 const EditProfile = (props) => {
-
+    console.log(props.user)
     const fileInput = React.createRef()
 
-    const [ name, updateName ] = useState()
-    const [ email, updateEmail ] = useState()
-    const [ shippingAddress, updateShippingAddress ] = useState(
-    )
-    const [ description, updateDescription ] = useState()
+    const [ name, updateName ] = useState('')
+    const [ email, updateEmail ] = useState('')
+    const [ shippingAddress, updateShippingAddress ] = useState('')
+    const [ description, updateDescription ] = useState('')
     // const [ image, updateImage ] = useState()
 
     // handle picture upload
@@ -33,13 +34,6 @@ const EditProfile = (props) => {
     const handleClick = async () => {
         console.log(name)
         const updatedUser = createUpdatedUser()
-        // const updatedUser = {
-        //     name,
-        //     email,
-        //     shippingAddress,
-        //     description
-        // }
-
         await props.updateProfile(updatedUser)
         .then(data => console.log(data))
         .catch(err => console.error(err))
@@ -49,27 +43,25 @@ const EditProfile = (props) => {
     // need better error handling
     const createUpdatedUser = () => {
         console.log(props.user)
-        const updatedName = name !== undefined ? name : props.user.details.name
-        const updatedEmail = email !== undefined ? email : props.user.details.email
-        // const updatedShippingAddress = shippingAddress !== undefined ? shippingAddress : props.user.shippingAddress
-        // const updatedDescription = description !== undefined ? description : props.user.description
+        const updatedName = name !== '' ? name : props.user.details.name
+        const updatedEmail = email !== '' ? email : props.user.details.email
         const updatedShippingAddress = () => {
-            if (shippingAddress !== undefined) {
+            if (shippingAddress !== '') {
                 return shippingAddress
             }
-            if (props.user.shippingAddress === undefined) {
+            if (props.user.details.shippingAddress === undefined) {
                 return 'no shipping address on file'
             }
-            return props.user.shippingAddress
+            return props.user.details.shippingAddress
         }
         const updatedDescription = () => {
-            if (description !== undefined) {
+            if (description !== '') {
                 return description
             }
-            if (props.user.description === undefined) {
+            if (props.user.details.description === undefined) {
                 return 'no description on file'
             }
-            return props.user.description
+            return props.user.details.description
         }
         
         return {
@@ -95,47 +87,73 @@ const EditProfile = (props) => {
             </GridCell>
             </Grid>
 
-            <Grid>
-                <input 
-                    type="text"
-                    name="name"
-                    value={name}
-                    placeholder={props.user.details.name}
-                    onChange={e => updateName(e.target.value)}
-                />
-                <input 
-                    type="text"
-                    name="email"
-                    value={email}
-                    placeholder={props.user.details.email}
-                    onChange={e => updateEmail(e.target.value)}
-                />
-                <input 
-                    type="text"
-                    name="shipping-address"
-                    value={shippingAddress}
-                    placeholder={props.user.details.shippingAddress ? props.user.details.shippingAddress : 'enter address'}
-                    onChange={e => updateShippingAddress(e.target.value)}
-                />
-                <input 
-                    type="text"
-                    name="description"
-                    value={description}
-                    placeholder={props.user.details.description ? props.user.details.description : 'enter a description'}
+            <Grid alignCenter={true}>
+                <GridCell>
+                    <label for="name"  style={{ padding: '2em', margin: '5%', textAlign: 'center' }}>Name:</label>
+                    <Input style={{ padding: '2em', marginTop: '5%', textAlign: 'center' }}
+                            type="text"
+                            name="name"
+                            value={name}
+                            placeholder={props.user.details.name}
+                            onChange={e => updateName(e.target.value)}
+                        />
                     
-                    onChange={e => updateDescription(e.target.value)}
-                />
+                    
+                    <label for="email"  style={{ padding: '2em', margin: '5%', textAlign: 'center' }}>Email:</label>
+                    <Input 
+                        type="text"
+                        name="email"
+                        value={email}
+                        placeholder={props.user.details.email}
+                        onChange={e => updateEmail(e.target.value)}
+                    />
+                    
+                    <label for="shipping-address"  style={{ padding: '2em', marginTop: '5%', textAlign: 'center' }}>Shipping Address:</label>
+                    <Input
+                        type="text"
+                        name="shipping-address"
+                        value={shippingAddress}
+                        placeholder={props.user.details.shippingAddress !== '' ? props.user.details.shippingAddress : 'enter address'}
+                        onChange={e => updateShippingAddress(e.target.value)}
+                    />
+                </GridCell>
 
-                {/* <form onSubmit={e => handleSubmit(e)}>
-                    <label>
-                        Upload file:
-                        <input type="file" ref={fileInput} accept=".jpg, .jpeg, .png"/>
-                    </label>
-                    <button type="submit">Submit</button>
-                </form> */}
+                <GridCell>
+                    <label for="description">Decsription:</label>
+                    <Textarea 
+                        // type="text"
+                        rows="4"
+                        cols="50"
+                        name="description"
+                        value={description}
+                        placeholder={props.user.details.description !== '' ? props.user.details.description : 'enter a description'}
+                        
+                        onChange={e => updateDescription(e.target.value)}
+                    />
+                </GridCell>
 
-                <Button theme="primary" onClick={handleClick}>Save Changes</Button>
-                <Button theme="secondary">Abort</Button>
+                {/* Upload File */}
+                {/* <div style={{ marginTop: '1em' }}>
+                    <input
+                      type="file"
+                      onChange={this.onUpload}
+                      required={this.state.product.id === 0}
+                    />
+                  </div> */}
+
+                  {/* Uploaded image */}
+                  {/* {renderIf(this.state.product.image !== '', () => (
+                    <img src={routeImage + this.state.product.image} alt="Product Image"
+                         style={{ width: 200, marginTop: '1em' }}/>
+                  {/* ))} */}
+
+
+                <GridCell>
+                    <Button theme="primary" onClick={handleClick}>Save Changes</Button>
+                    <Link to={userRoutes.profile.path}>
+                        <Button onClick={clearInputs}theme="secondary">Abort</Button>
+                    </Link>
+                </GridCell>
             </Grid>
         </div>
     )

@@ -137,6 +137,6 @@ export function updateProfile(userDetails) {
   }
   
   const setLocalStorageOnEditProfile = (user) => {
-    const userObj = {email: user.email, name: user.name, role: 'user', shippingAddress: user.shippingAddress}
+    const userObj = {email: user.email, name: user.name, role: 'user', shippingAddress: user.shippingAddress, description: user.description}
     window.localStorage.setItem('user', JSON.stringify(userObj))
   }

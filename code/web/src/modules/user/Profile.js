@@ -30,12 +30,23 @@ const Profile = (props) => (
       </GridCell>
     </Grid>
 
+   
+
     <Grid>
       <GridCell style={{ padding: '2em', textAlign: 'center' }}>
         <H4 style={{ marginBottom: '0.5em' }}>{props.user.details.name}</H4>
 
         <p style={{ color: grey2, marginBottom: '2em' }}>{props.user.details.email}</p>
 
+        {/* <Grid> */}
+      <GridCell style={{ padding: '2em', textAlign: 'center' }}>
+        <h3>Shipping Address:</h3>
+        <p>{props.user.details.shippingAddress}</p>
+        <br />
+        <h3>Description:</h3>
+        <p>{props.user.details.description}</p>
+      </GridCell>
+    {/* </Grid> */}
         <Link to={userRoutes.subscriptions.path}>
           <Button theme="primary">Subscriptions</Button>
         </Link>
