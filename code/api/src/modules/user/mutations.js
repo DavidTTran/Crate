@@ -47,12 +47,12 @@ export const editProfile = {
       name: 'name',
       type: GraphQLString
     },
-    
+
     email: {
-       name: 'email',
+      name: 'email',
        type: GraphQLString
      },
-     
+
      shippingAddress: {
        name: 'shippingAddress',
        type: GraphQLString
