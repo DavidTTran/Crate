@@ -50,28 +50,27 @@ const EditProfile = (props) => {
             if (shippingAddress !== '') {
                 return shippingAddress
             }
-            if (props.user.details.shippingAddress === undefined) {
-                return 'no shipping address on file'
-            }
             return props.user.details.shippingAddress
         }
         const updatedDescription = () => {
             if (description !== '') {
                 return description
             }
-            if (props.user.details.description === undefined) {
-                return 'no description on file'
-            }
             return props.user.details.description
         }
-        // need error handling if no image
+        const updatedImage = () => {
+            if (imagePath !== '') {
+                return imagePath
+            }
+            return props.user.details.image
+        }
 
         return {
             name: updatedName,
             email: updatedEmail,
             shippingAddress: updatedShippingAddress(),
             description: updatedDescription(),
-            image: imagePath
+            image: updatedImage()
         }
     }
 
@@ -81,7 +80,6 @@ const EditProfile = (props) => {
         updateShippingAddress()
         updateDescription()
     }
-
 
     const onUpload = (event) => {
         let data = new FormData()
@@ -93,7 +91,6 @@ const EditProfile = (props) => {
                 console.log(response.data)
                 //below puts it into component state
               updateImagePath(response.data.file)
-
             } else {
               this.props.messageShow('Please try again.')
             }
@@ -101,7 +98,6 @@ const EditProfile = (props) => {
           .catch(error => {
             console.error(error)
           })
-
       }
 
 
@@ -114,9 +110,9 @@ const EditProfile = (props) => {
             </Grid>
 
             <Grid alignCenter={true}>
-                <GridCell>
-                    <label for="name"  style={{ padding: '2em', margin: '5%', textAlign: 'center' }}>Name:</label>
-                    <Input style={{ padding: '2em', marginTop: '5%', textAlign: 'center' }}
+                <GridCell style={{margin: '5% 0 0 15%', width: '40%'}}>
+                    <label for="name"  style={{ margin: '5%', textAlign: 'center' }}>Update Name:</label>
+                    <Input style={{ margin: '1% 0 10% 0', textAlign: 'center' }}
                             type="text"
                             name="name"
                             value={name}
@@ -125,8 +121,8 @@ const EditProfile = (props) => {
                         />
 
 
-                    <label for="email"  style={{ padding: '2em', margin: '5%', textAlign: 'center' }}>Email:</label>
-                    <Input
+                    <label for="email"  style={{ margin: '5%', textAlign: 'center' }}>Update Email:</label>
+                    <Input style={{ margin: '1% 0 10% 0', textAlign: 'center' }}
                         type="text"
                         name="email"
                         value={email}
@@ -134,8 +130,8 @@ const EditProfile = (props) => {
                         onChange={e => updateEmail(e.target.value)}
                     />
 
-                    <label for="shipping-address"  style={{ padding: '2em', marginTop: '5%', textAlign: 'center' }}>Shipping Address:</label>
-                    <Input
+                    <label for="shipping-address"  style={{ marginTop: '5%', textAlign: 'center' }}>Update Shipping Address:</label>
+                    <Input style={{ margin: '1% 0 10% 0', textAlign: 'center' }}
                         type="text"
                         name="shipping-address"
                         value={shippingAddress}
@@ -144,8 +140,8 @@ const EditProfile = (props) => {
                     />
                 </GridCell>
 
-                <GridCell>
-                    <label for="description">Decsription:</label>
+                <GridCell style={{width: '50%'}}> 
+                    <label for="description">Update Decsription:</label>
                     <Textarea
                         // type="text"
                         rows="4"
@@ -156,15 +152,17 @@ const EditProfile = (props) => {
 
                         onChange={e => updateDescription(e.target.value)}
                     />
-                </GridCell>
-
                 {/* Upload File */}
-                <div style={{ marginTop: '1em' }}>
+                <section style={{ margin: '5%', display: 'block' }}>
+                    <lablel for="profile-picture" style={{margin: '0 5%'}}>Update Profile Picture:</lablel>
                     <input
                       type="file"
+                      name="profile-picture"
                       onChange={e => onUpload(e)}
                     />
-                  </div>
+                  </section>
+                </GridCell>
+
 
                   {/* Uploaded image */}
                   {/* {renderIf(this.state.product.image !== '', () => (
@@ -173,9 +171,9 @@ const EditProfile = (props) => {
                   {/* ))} */}
 
 
-                <GridCell>
+                <GridCell style={{ margin: '0 5%'}} >
                     <Link to={userRoutes.profile.path}>
-                      <Button theme="primary" onClick={handleClick}>Save Changes</Button>
+                      <Button theme="primary" onClick={handleClick} style={{display: 'block', marginBottom: '5%'}}>Save Changes</Button>
                     </Link>
                     <Link to={userRoutes.profile.path}>
                         <Button onClick={clearInputs}theme="secondary">Abort</Button>

@@ -123,20 +123,20 @@ if (typeof window !== 'undefined') {
   })
 
 //   test each of the three with changing
-    it('the name input should update after a user changes it', ()=>{
+    it('the name input should update after a user changes it',  ()=>{
     const { getByText, getByPlaceholderText } = render(router)
 
     fireEvent.change(getByPlaceholderText('Jerry Garcia'), {target: {value: 'Bob Weir'}})
+    fireEvent.change(getByPlaceholderText('dave@crate.com'), {target: {value: 'bob@bob.com'}})
+    fireEvent.change(getByPlaceholderText('no shipping address on file'), {target: {value: '123 Easy Street'}})
+    fireEvent.change(getByPlaceholderText('no description on file'), {target: {value: 'Ill meet you at the jubilee'}})
     
     fireEvent.click(getByText('Save Changes'))
     
-    waitFor(() => 
-        expect(
-            getByText('Edit Profile')).toBeInTheDocument()
-        )
+    // await waitFor(() => expect(getByText('Edit Profile')).toBeInTheDocument())
 
     fireEvent.click(getByText('Edit Profile'))
 
-    expect(getByPlaceholderText('Bob Weir')).toBeInTheDocument()
+    expect(getByText('Bob Weir')).toBeInTheDocument()
   })
 })
