@@ -6,8 +6,6 @@ import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { routeImage, routes } from '../../setup/routes'
 
-
-
 // UI Imports
 import ImageTile from '../../ui/image/Tile'
 import { level1 } from '../../ui/common/shadows'

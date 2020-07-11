@@ -24,14 +24,6 @@ const EditProfile = (props) => {
     const [ description, updateDescription ] = useState('')
     const [ imagePath, updateImagePath ] = useState('')
 
-    // handle picture upload
-    // const handleSubmit = e => {
-    //     e.preventDefault()
-    //     const pic = fileInput.current.files[0]
-    //     // console.log(image)
-    //     updateImage(pic)
-    // }
-
     const handleClick = async () => {
         console.log(name)
         const updatedUser = createUpdatedUser()
@@ -110,8 +102,8 @@ const EditProfile = (props) => {
             </Grid>
 
             <Grid alignCenter={true}>
-                <GridCell style={{margin: '5% 0 0 15%', width: '40%'}}>
-                    <label for="name"  style={{ margin: '5%', textAlign: 'center' }}>Update Name:</label>
+                <GridCell style={{margin: '5% 0 0 15%', width: '50%'}}>
+                    <label htmlFor="name"  style={{ margin: '5%', textAlign: 'center' }}>Update Name:</label>
                     <Input style={{ margin: '1% 0 10% 0', textAlign: 'center' }}
                             type="text"
                             name="name"
@@ -121,7 +113,7 @@ const EditProfile = (props) => {
                         />
 
 
-                    <label for="email"  style={{ margin: '5%', textAlign: 'center' }}>Update Email:</label>
+                    <label htmlFor="email"  style={{ margin: '5%', textAlign: 'center' }}>Update Email:</label>
                     <Input style={{ margin: '1% 0 10% 0', textAlign: 'center' }}
                         type="text"
                         name="email"
@@ -130,7 +122,7 @@ const EditProfile = (props) => {
                         onChange={e => updateEmail(e.target.value)}
                     />
 
-                    <label for="shipping-address"  style={{ marginTop: '5%', textAlign: 'center' }}>Update Shipping Address:</label>
+                    <label htmlFor="shipping-address"  style={{ marginTop: '5%', textAlign: 'center' }}>Update Shipping Address:</label>
                     <Input style={{ margin: '1% 0 10% 0', textAlign: 'center' }}
                         type="text"
                         name="shipping-address"
@@ -141,7 +133,7 @@ const EditProfile = (props) => {
                 </GridCell>
 
                 <GridCell style={{width: '50%'}}> 
-                    <label for="description">Update Decsription:</label>
+                    <label htmlFor="description">Update Description:</label>
                     <Textarea
                         // type="text"
                         rows="4"
@@ -154,7 +146,7 @@ const EditProfile = (props) => {
                     />
                 {/* Upload File */}
                 <section style={{ margin: '5%', display: 'block' }}>
-                    <lablel for="profile-picture" style={{margin: '0 5%'}}>Update Profile Picture:</lablel>
+                    <label htmlFor="profile-picture" style={{margin: '0 5%'}}>Update Profile Picture:</label>
                     <input
                       type="file"
                       name="profile-picture"
@@ -162,14 +154,6 @@ const EditProfile = (props) => {
                     />
                   </section>
                 </GridCell>
-
-
-                  {/* Uploaded image */}
-                  {/* {renderIf(this.state.product.image !== '', () => (
-                    <img src={routeImage + this.state.product.image} alt="Product Image"
-                         style={{ width: 200, marginTop: '1em' }}/>
-                  {/* ))} */}
-
 
                 <GridCell style={{ margin: '0 5%'}} >
                     <Link to={userRoutes.profile.path}>
