@@ -43,14 +43,11 @@ const Profile = (props) => {
     <H4 style={{ margin: '0.5em', textAlign: 'center' }} >{props.user.details.name}</H4> 
 
     <section style={{display : 'inline-block', width : '40%'}}>
-      {/* <p style={{ color: grey2, marginBottom: '2em', width: '20%' }}>{props.user.details.email}</p>  */}
       <ImageTile width={300} height={300} shadow={level1} style={{margin: '0 10%'}}image={imageRoute + profilePicRoute} />
     </section>
 
     <section style={{display : 'inline-block', width: '40%'}}>
-    {/* <Grid  > */}
 
-      {/* <GridCell style={{ padding: '2em', textAlign: 'center' }}> */}
 
       <GridCell style={{ textAlign: 'center', width: '50%',  fontSize: '1em', position: 'absolute', bottom: '30%' }}>
         <h3 style={{margin: '5% 0 2% 0'}}>Email</h3>
@@ -61,7 +58,6 @@ const Profile = (props) => {
         <p>{props.user.details.description}</p>
       </GridCell>
       </section>
-      {/* <section> */}
       <GridCell style={{textAlign: 'center'}}>
         <Link to={userRoutes.subscriptions.path}>
           <Button theme="primary">Subscriptions</Button>
@@ -73,8 +69,6 @@ const Profile = (props) => {
 
         <Button theme="secondary" onClick={props.logout} style={{ marginLeft: '1em' }}>Logout</Button>
       </GridCell>
-    {/* </Grid> */}
-    {/* </section> */}
   </div>
 )
   }

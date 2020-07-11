@@ -50,14 +50,14 @@ describe("Profile", () => {
 
   })
 
-it('should render the user name on page load', () => {
+xit('should render the user name on page load', () => {
 
   const { getByText } = render(router)
   expect(getByText("Jerry Garcia")).toBeInTheDocument()
 })
 
 
-it('should log the user out', ()=>{
+xit('should log the user out', ()=>{
   const { getByText, debug } = render(router)
   // mockLogout = jest.fn()
   fireEvent.click(getByText("Logout"))
