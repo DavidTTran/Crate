@@ -15,6 +15,7 @@ export function messageHide() {
 }
 
 export function upload(data) {
+  console.log(data)
   return dispatch => {
     return axios.post(routeApi + '/upload', data, {
       headers: {

@@ -9,19 +9,20 @@ import { H3 } from '../../ui/typography'
 import { grey} from '../../ui/common/colors'
 import { updateProfile } from './api/actions'
 import userRoutes from '../../setup/routes/user'
+import { upload, messageShow, messageHide } from './api/actions'
+
 
 
 
 // class EditProfile extends React.Component {
 const EditProfile = (props) => {
-    console.log(props.user)
     const fileInput = React.createRef()
 
     const [ name, updateName ] = useState('')
     const [ email, updateEmail ] = useState('')
     const [ shippingAddress, updateShippingAddress ] = useState('')
     const [ description, updateDescription ] = useState('')
-    // const [ image, updateImage ] = useState()
+    const [ imagePath, updateImagePath ] = useState('')
 
     // handle picture upload
     // const handleSubmit = e => {
@@ -30,7 +31,7 @@ const EditProfile = (props) => {
     //     // console.log(image)
     //     updateImage(pic)
     // }
-    
+
     const handleClick = async () => {
         console.log(name)
         const updatedUser = createUpdatedUser()
@@ -63,12 +64,14 @@ const EditProfile = (props) => {
             }
             return props.user.details.description
         }
-        
+        // need error handling if no image
+
         return {
             name: updatedName,
             email: updatedEmail,
             shippingAddress: updatedShippingAddress(),
-            description: updatedDescription()
+            description: updatedDescription(),
+            image: imagePath
         }
     }
 
@@ -78,6 +81,29 @@ const EditProfile = (props) => {
         updateShippingAddress()
         updateDescription()
     }
+
+
+    const onUpload = (event) => {
+        let data = new FormData()
+        data.append('file', event.target.files[0])
+        // Upload image
+        props.upload(data)
+          .then(response => {
+            if (response.status === 200) {
+                console.log(response.data)
+                //below puts it into component state
+              updateImagePath(response.data.file)
+
+            } else {
+              this.props.messageShow('Please try again.')
+            }
+          })
+          .catch(error => {
+            console.error(error)
+          })
+
+      }
+
 
     return (
         <div>
@@ -97,17 +123,17 @@ const EditProfile = (props) => {
                             placeholder={props.user.details.name}
                             onChange={e => updateName(e.target.value)}
                         />
-                    
-                    
+
+
                     <label for="email"  style={{ padding: '2em', margin: '5%', textAlign: 'center' }}>Email:</label>
-                    <Input 
+                    <Input
                         type="text"
                         name="email"
                         value={email}
                         placeholder={props.user.details.email}
                         onChange={e => updateEmail(e.target.value)}
                     />
-                    
+
                     <label for="shipping-address"  style={{ padding: '2em', marginTop: '5%', textAlign: 'center' }}>Shipping Address:</label>
                     <Input
                         type="text"
@@ -120,26 +146,25 @@ const EditProfile = (props) => {
 
                 <GridCell>
                     <label for="description">Decsription:</label>
-                    <Textarea 
+                    <Textarea
                         // type="text"
                         rows="4"
                         cols="50"
                         name="description"
                         value={description}
                         placeholder={props.user.details.description !== '' ? props.user.details.description : 'enter a description'}
-                        
+
                         onChange={e => updateDescription(e.target.value)}
                     />
                 </GridCell>
 
                 {/* Upload File */}
-                {/* <div style={{ marginTop: '1em' }}>
+                <div style={{ marginTop: '1em' }}>
                     <input
                       type="file"
-                      onChange={this.onUpload}
-                      required={this.state.product.id === 0}
+                      onChange={e => onUpload(e)}
                     />
-                  </div> */}
+                  </div>
 
                   {/* Uploaded image */}
                   {/* {renderIf(this.state.product.image !== '', () => (
@@ -149,7 +174,9 @@ const EditProfile = (props) => {
 
 
                 <GridCell>
-                    <Button theme="primary" onClick={handleClick}>Save Changes</Button>
+                    <Link to={userRoutes.profile.path}>
+                      <Button theme="primary" onClick={handleClick}>Save Changes</Button>
+                    </Link>
                     <Link to={userRoutes.profile.path}>
                         <Button onClick={clearInputs}theme="secondary">Abort</Button>
                     </Link>
@@ -163,14 +190,15 @@ const EditProfile = (props) => {
 // proptypes
 EditProfile.propTypes = {
     user: PropTypes.object.isRequired,
-    updateProfile: PropTypes.func.isRequired
+    updateProfile: PropTypes.func.isRequired,
+    upload: PropTypes.func.isRequired,
   }
-  
+
   // Component State
   function editProfileState(state) {
     return {
       user: state.user,
     }
   }
-  
-  export default connect(editProfileState, {updateProfile})(EditProfile)
+
+  export default connect(editProfileState, {updateProfile, upload})(EditProfile)
