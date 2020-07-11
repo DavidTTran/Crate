@@ -37,12 +37,14 @@ describe("user queries", () => {
     expect(response.body.data.user.name).toEqual("The Admin")
   })
 
-  xit("authenticates a user given password and email", async () => {
+  it("authenticates a user given password and email", async () => {
     const response = await request(server)
       .get('/')
-      .send({ query: '{ userLogin(email: "admin@crate.com", password: "123456") { id name email role } }' })
+      .send({ query: `{ userLogin(email: "admin@crate.com", password: "123456") {
+        user { id name } token } }`})
       .expect(200)
-
-    console.log(response.body.data)
+    expect(response.body.data.userLogin.user.name).toEqual("The Admin")
+    expect(response.body.data.userLogin.user.id).toEqual(1)
+    expect(response.body.data.token).toBeTruthy
   })
 })
