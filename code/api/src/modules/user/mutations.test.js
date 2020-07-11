@@ -72,7 +72,20 @@ describe("user mutators", () => {
       .send({ query: `mutation{ userRemove(id: ${ user.id }) { id } }` })
 
     expect(response.body.data.userRemove.id).toBe(null)
-    let checkUser = await models.User.findOne({ where: { id: user.id } })
-    expect(checkUser).toBe(null)
+    let noUser = await models.User.findOne({ where: { id: user.id } })
+    let existingUser = await models.User.findOne({ where: { id: admin.id } })
+    expect(noUser).toBe(null)
+    expect(existingUser).toBeTruthy
+  })
+
+  xit("can update a user", async () => {
+    const response = await request(server)
+      .post('/')
+      .send({ query: `mutation{ editProfile(email: "user@crate.com",
+      name: "new name", description: "new description", shippingAddress: "new address", image: "new image")
+        { id } }` })
+
+    let newUser = await models.User.findOne({ where: { id: originalId } })
+    expect(newUser.name).toEqual("new name")
   })
 });
