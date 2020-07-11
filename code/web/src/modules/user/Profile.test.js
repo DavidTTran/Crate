@@ -1,26 +1,38 @@
+
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import "@testing-library/jest-dom/extend-expect";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import Profile from './Profile';
 import { Provider } from 'react-redux'
-import { createStore, combineReducers } from 'redux'
-// import * as actions from './api/actions.js'
-// import * as types from './api/state.js'
-// import rootReducer from '../../setup/store'
+import { createStore, combineReducers, rootReducer, compose, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import { SET_USER } from './api/actions';
 
 
 describe("Profile", () => {
   let user;
   let router;
   let store
-  let logout
-  let dispatch
+  let mockLogout
+
 
   beforeEach(() => {
-    // logout = () =>{ jest.fn() }
+    mockLogout = jest.fn()
     user = () => {
-      return {details: {name:"Jerry Garcia", email:"dave@crate.com", role:"USER"}}
+      return {
+        error: null,
+        isLoading: false,
+        isAuthenticated: true,
+        details: {
+            name:"Jerry Garcia",
+            email:"dave@crate.com",
+            role:"USER",
+            shippingAddress: 'no shipping address on file',
+            description: 'no description on file',
+            image: ''
+          }
+        }
     }
 
     const appReducer = combineReducers({
@@ -36,16 +48,24 @@ describe("Profile", () => {
       return appReducer(state, action)
     }
     // Load initial state from server side
-    let initialState =  Object.assign(user())
+    // let initialState =  Object.assign(user())
+    let initialState
+        if (typeof window !== 'undefined') {
+            initialState = window.__INITIAL_STATE__
+            delete window.__INITIAL_STATE__
+        }
 
-    store = createStore(rootReducer, initialState)
+    // store = createStore(rootReducer, initialState)
+    store = createStore(rootReducer, applyMiddleware(thunk))
     // store.dispatch = jest.fn()
 
     router =
     <Provider store={store}>
-      <BrowserRouter>
+        {/* <BrowserRouter> */}
+        <MemoryRouter>
         <Profile/>
-      </BrowserRouter>
+        </MemoryRouter>
+        {/* </BrowserRouter> */}
     </Provider>
 
   })
@@ -56,32 +76,22 @@ it('should render the user name on page load', () => {
   expect(getByText("Jerry Garcia")).toBeInTheDocument()
 })
 
+it('should render a logout button to log the user out', () => {
 
-// it('should log the user out', ()=>{
-//   const { getByText, debug } = render(router)
-//   // mockLogout = jest.fn()
-//   fireEvent.click(getByText("Logout"))
-//   expect(logout).toHaveBeenCalled()
-//
-// })
-
-
-it.skip('should log the user out', () => {
-  const expectedAction = {
-    dispatch: types.LOGOUT,
-    }
-  expect(actions.logout()).toEqual(expectedAction)
+  const { getByText } = render(router)
+  expect(getByText("Logout")).toBeInTheDocument()
 })
 
-// export function logout() {
-//   return dispatch => {
-//     logoutUnsetUserLocalStorageAndCookie()
-//
-//     dispatch({
-//       type: LOGOUT
-//     })
-//   }
-// }
+// this one doesn't work
+it('should log the user out', () => {
+
+  const { getByText } = render(router)
+  const button = getByText("Logout")
+  fireEvent.click(button)
+  expect(getByText("Login to your account")).toBeInTheDocument()
+  // expect(mockLogout).toHaveBeenCalled();
+})
+
 
 
 
