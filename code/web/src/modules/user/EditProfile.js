@@ -31,7 +31,7 @@ const EditProfile = (props) => {
     //     // console.log(image)
     //     updateImage(pic)
     // }
-    
+
     const handleClick = async () => {
         console.log(name)
         const updatedUser = createUpdatedUser()
@@ -65,7 +65,7 @@ const EditProfile = (props) => {
             return props.user.details.description
         }
         // need error handling if no image
-        
+
         return {
             name: updatedName,
             email: updatedEmail,
@@ -91,8 +91,9 @@ const EditProfile = (props) => {
           .then(response => {
             if (response.status === 200) {
                 console.log(response.data)
+                //below puts it into component state
               updateImagePath(response.data.file)
-             
+
             } else {
               this.props.messageShow('Please try again.')
             }
@@ -100,9 +101,9 @@ const EditProfile = (props) => {
           .catch(error => {
             console.error(error)
           })
-         
+
       }
-    
+
 
     return (
         <div>
@@ -122,17 +123,17 @@ const EditProfile = (props) => {
                             placeholder={props.user.details.name}
                             onChange={e => updateName(e.target.value)}
                         />
-                    
-                    
+
+
                     <label for="email"  style={{ padding: '2em', margin: '5%', textAlign: 'center' }}>Email:</label>
-                    <Input 
+                    <Input
                         type="text"
                         name="email"
                         value={email}
                         placeholder={props.user.details.email}
                         onChange={e => updateEmail(e.target.value)}
                     />
-                    
+
                     <label for="shipping-address"  style={{ padding: '2em', marginTop: '5%', textAlign: 'center' }}>Shipping Address:</label>
                     <Input
                         type="text"
@@ -145,14 +146,14 @@ const EditProfile = (props) => {
 
                 <GridCell>
                     <label for="description">Decsription:</label>
-                    <Textarea 
+                    <Textarea
                         // type="text"
                         rows="4"
                         cols="50"
                         name="description"
                         value={description}
                         placeholder={props.user.details.description !== '' ? props.user.details.description : 'enter a description'}
-                        
+
                         onChange={e => updateDescription(e.target.value)}
                     />
                 </GridCell>
@@ -192,12 +193,12 @@ EditProfile.propTypes = {
     updateProfile: PropTypes.func.isRequired,
     upload: PropTypes.func.isRequired,
   }
-  
+
   // Component State
   function editProfileState(state) {
     return {
       user: state.user,
     }
   }
-  
+
   export default connect(editProfileState, {updateProfile, upload})(EditProfile)
