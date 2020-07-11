@@ -6,8 +6,6 @@ import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { routeImage, routes } from '../../setup/routes'
 
-
-
 // UI Imports
 import ImageTile from '../../ui/image/Tile'
 import { level1 } from '../../ui/common/shadows'
@@ -40,16 +38,17 @@ const Profile = (props) => {
       </GridCell>
     </Grid>
     
-    <H4 style={{ margin: '0.5em', textAlign: 'center' }} >{props.user.details.name}</H4> 
+    <H4 style={{ margin: '1% 0 2%', textAlign: 'center' }} >{props.user.details.name}</H4> 
 
-    <section style={{display : 'inline-block', width : '40%'}}>
-      <ImageTile width={300} height={300} shadow={level1} style={{margin: '0 10%'}}image={imageRoute + profilePicRoute} />
+    <section style={{display : 'inline-block', width : '30%'}}>
+      <ImageTile width={300} height={300} shadow={level1} style={{margin: '0 20% 0 70%'}}image={imageRoute + profilePicRoute} />
     </section>
 
     <section style={{display : 'inline-block', width: '40%'}}>
 
 
-      <GridCell style={{ textAlign: 'center', width: '50%',  fontSize: '1em', position: 'absolute', bottom: '30%' }}>
+      <GridCell style={{ textAlign: 'center', margin: '0 0 5% 50%', fontSize: '1em',  }}>
+        <h2 style={{fontSize: '1.4em', margin: '0', padding: '0'}}>My Info</h2>
         <h3 style={{margin: '5% 0 2% 0'}}>Email</h3>
         <p>{props.user.details.email}</p>
         <h3 style={{margin: '5% 0 2% 0'}}>Shipping Address:</h3>
@@ -58,13 +57,13 @@ const Profile = (props) => {
         <p>{props.user.details.description}</p>
       </GridCell>
       </section>
-      <GridCell style={{textAlign: 'center'}}>
+      <GridCell style={{textAlign: 'center', marginTop: '2%'}}>
         <Link to={userRoutes.subscriptions.path}>
           <Button theme="primary">Subscriptions</Button>
         </Link>
 
         <Link to={userRoutes.editProfile.path}>
-          <Button theme="secondary">Edit Profile</Button>
+          <Button theme="secondary" style={{ marginLeft: '1%'}}>Edit Profile</Button>
         </Link>
 
         <Button theme="secondary" onClick={props.logout} style={{ marginLeft: '1em' }}>Logout</Button>
