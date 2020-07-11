@@ -4,8 +4,13 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
+import { routeImage, routes } from '../../setup/routes'
+
+
 
 // UI Imports
+import ImageTile from '../../ui/image/Tile'
+import { level1 } from '../../ui/common/shadows'
 import { Grid, GridCell } from '../../ui/grid'
 import { H3, H4 } from '../../ui/typography'
 import Button from '../../ui/button'
@@ -16,7 +21,12 @@ import userRoutes from '../../setup/routes/user'
 import { logout } from './api/actions'
 
 // Component
-const Profile = (props) => (
+
+const Profile = (props) => {
+  const imageRoute = "http://localhost:8000/images/uploads/"
+  const profilePicRoute = props.user.details.image
+  
+  return (
   <div>
     {/* SEO */}
     <Helmet>
@@ -29,24 +39,26 @@ const Profile = (props) => (
         <H3 font="secondary">My profile</H3>
       </GridCell>
     </Grid>
+    
+    <H4 style={{ margin: '0.5em', textAlign: 'center' }} >{props.user.details.name}</H4> 
 
-   
+    <section style={{display : 'inline-block', width : '40%'}}>
+      <ImageTile width={300} height={300} shadow={level1} style={{margin: '0 10%'}}image={imageRoute + profilePicRoute} />
+    </section>
 
-    <Grid>
-      <GridCell style={{ padding: '2em', textAlign: 'center' }}>
-        <H4 style={{ marginBottom: '0.5em' }}>{props.user.details.name}</H4>
+    <section style={{display : 'inline-block', width: '40%'}}>
 
-        <p style={{ color: grey2, marginBottom: '2em' }}>{props.user.details.email}</p>
 
-        {/* <Grid> */}
-      <GridCell style={{ padding: '2em', textAlign: 'center' }}>
-        <h3>Shipping Address:</h3>
+      <GridCell style={{ textAlign: 'center', width: '50%',  fontSize: '1em', position: 'absolute', bottom: '30%' }}>
+        <h3 style={{margin: '5% 0 2% 0'}}>Email</h3>
+        <p>{props.user.details.email}</p>
+        <h3 style={{margin: '5% 0 2% 0'}}>Shipping Address:</h3>
         <p>{props.user.details.shippingAddress}</p>
-        <br />
-        <h3>Description:</h3>
+        <h3 style={{margin: '5% 0 2% 0'}}>Description:</h3>
         <p>{props.user.details.description}</p>
       </GridCell>
-    {/* </Grid> */}
+      </section>
+      <GridCell style={{textAlign: 'center'}}>
         <Link to={userRoutes.subscriptions.path}>
           <Button theme="primary">Subscriptions</Button>
         </Link>
@@ -57,9 +69,9 @@ const Profile = (props) => (
 
         <Button theme="secondary" onClick={props.logout} style={{ marginLeft: '1em' }}>Logout</Button>
       </GridCell>
-    </Grid>
   </div>
 )
+  }
 
 // Component Properties.
 Profile.propTypes = {

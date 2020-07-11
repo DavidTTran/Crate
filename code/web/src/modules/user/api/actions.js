@@ -121,10 +121,11 @@ export function getGenders() {
 
 export function updateProfile(userDetails) {
   return dispatch => {
+    console.log(userDetails)
       return axios.post(routeApi, mutation({
         operation: 'editProfile',
         variables: userDetails,
-        fields: ['name', 'email', 'shippingAddress', 'description']
+        fields: ['name', 'email', 'shippingAddress', 'description', 'image']
       }))
       .then(response => {
         setLocalStorageOnEditProfile(userDetails)
@@ -135,8 +136,18 @@ export function updateProfile(userDetails) {
       })   
     }
   }
+
+    export function upload(data) {
+      return dispatch => {
+        return axios.post(routeApi + '/upload', data, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+      }
+  }
   
   const setLocalStorageOnEditProfile = (user) => {
-    const userObj = {email: user.email, name: user.name, role: 'user', shippingAddress: user.shippingAddress, description: user.description}
+    const userObj = {email: user.email, name: user.name, role: 'user', shippingAddress: user.shippingAddress, description: user.description, image: user.image}
     window.localStorage.setItem('user', JSON.stringify(userObj))
   }
