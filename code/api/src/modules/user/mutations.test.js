@@ -22,7 +22,7 @@ describe("user mutators", () => {
       })
     )
 
-    const user1= {
+    const user1 = {
       name: 'The Admin',
       email: 'admin@crate.com',
       password: bcrypt.hashSync('123456', 10),
