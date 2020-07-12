@@ -18,7 +18,11 @@ Our Group added a feature that allows users to edit their Profile page.  Users c
 <img width="841" alt="Screen Shot 2020-07-12 at 12 43 38 PM" src="https://user-images.githubusercontent.com/44849120/87254152-b790f100-c43d-11ea-8845-9457b263ad8f.png">
 <img width="1002" alt="Screen Shot 2020-07-12 at 12 43 17 PM" src="https://user-images.githubusercontent.com/44849120/87254188-f2932480-c43d-11ea-912b-89a89b6c7c1f.png">
 
-
+## Wins and Challenges
+# Wins
+  - We gained a greater understanding of how the Front-End UI connects to the Back-End.  By working together, we were able to create two new axios posts to the back end with new user information and an uploaded image.  We were then able to load that new information to the server database, bring the new information back to the front-end, where we updated state and local storage.  Ultimately, the new information is displayed on the page.
+# Challenges
+  - Understanding the file structure of a larger codebase was initially daunting, but we all now have a greater of understanding of how all of the front end and back end pieces fit together.  One of the biggest challenges for both the FE and BE was being able to implement testing.  For the BE, they were using a new testing library and testing in new languages, and for the FE they were using a new global state with testing.
 
 ## Screenshots and GIFs
 Click on image to view fullscreen and zoom
